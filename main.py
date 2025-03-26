@@ -34,6 +34,7 @@ def making_order():
             for product, quantity in shopping_cart:
                 if product.get_quantity() == 0:
                     product.deactivate()
+                    product.is_active()
 
             break
 

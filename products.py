@@ -8,6 +8,9 @@ class Product:
         if not name or price < 0 or quantity < 0:
             raise ValueError("Name can not be empty, price and quantity can not be negative.")
 
+        if self.quantity == 0:
+            self.deactivate()
+
 
     def get_quantity(self) -> int:
         """
