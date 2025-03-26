@@ -1,5 +1,6 @@
 import products
 import store
+import promotions
 
 def making_order():
     """ Helper function for the menu/start (initialization function) """
