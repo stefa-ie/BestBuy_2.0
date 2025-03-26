@@ -1,13 +1,22 @@
-#  🛍️ Best Buy 🛒
+#  🛍️🛒 Best Buy 2.0🛒🛍️
 
 
 ## ✏️ Description
-This is my first Shopping Application, developed using object-oriented programming (OOP) principles and classes. 
+This is my improved Shopping Application based on Best Buy, 
+developed using extended object-oriented programming (OOP) principles and classes. 
 
 The Basics of the app cover:
 - Displaying all products in store
 - Showing total amount in store
 - Placing an order
+
+New:
+- Unlimited available products now in the catalog
+- For certain products limited items per order 
+- Different types of promotions just as:
+  - Percentage discount
+  - 50% discount on second item
+  - Buy 2 pay one
 
 
 ## 📖 Table of Contents
@@ -19,7 +28,7 @@ The Basics of the app cover:
 ## 💾 Usage
 Instructions on how to use the project:
 ```sh# Clone the repository
-git clone https://github.com/stefa-ie/BestBuy.git
+git clone https://github.com/stefa-ie/BestBuy_2.0.git
 ```
 ```sh
 # Run the application
