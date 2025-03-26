@@ -65,7 +65,7 @@ class Product:
     def show(self) -> str:
         """ Returns a string that represents the product. """
         if self.promotion:
-            promo = f"{self.promotion}"
+            promo = self.promotion.name
         else:
             promo = None
 
