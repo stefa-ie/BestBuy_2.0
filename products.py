@@ -1,4 +1,3 @@
-import promotions
 
 class Product:
     """ Represents a product that can be purchased. """

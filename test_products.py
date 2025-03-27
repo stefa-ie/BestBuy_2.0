@@ -1,6 +1,5 @@
 import pytest
 import products
-import promotions
 
 
 def test_normal_product():
