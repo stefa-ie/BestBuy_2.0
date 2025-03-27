@@ -86,6 +86,7 @@ def start():
         if choice == "4":
             return quit()
 
+
 if __name__ == '__main__':
     # setup initial stock of inventory
     product_list = [products.Product("MacBook Air M2", price=1450, quantity=100),
@@ -108,3 +109,4 @@ if __name__ == '__main__':
     best_buy = store.Store(product_list)
 
     start()
+
