@@ -111,25 +111,45 @@ class NonStockedProduct(Product):
 
     def show(self) -> str:
         """ Overrides show method to return a string that represents the product. """
-        return f"{self.name}, Price: ${self.price}, Quantity: Unlimited "
+        if self.promotion:
+            promo = self.promotion.name
+        else:
+            promo = None
+
+        return f"{self.name}, Price: ${self.price}, Quantity: Unlimited, Promotion: {promo}"
+
+    def buy(self, quantity) -> float:
+        """ Overrides buy method to enforce unlimited quantity of a product when purchased. """
+        if quantity <= 0:
+            raise ValueError("Quantity must be positive.")
+
+        if self.promotion:
+            return self.promotion.apply_promotion(self.price, quantity)
+        return self.price * quantity
 
 
 class LimitedProduct(Product):
     """ Represents a product that can only be purchased up to a specified limit per order. """
     def __init__(self, name, price, quantity, maximum):
         super().__init__(name, price, quantity)
+        self.active = True
         self.maximum = maximum
-
-    def buy(self, quantity) -> float:
-        """ Overrides buy method to enforce limit. """
-        if quantity > self.maximum:
-            raise ValueError(f"It is only possible to purchase up to {self.maximum} units in one order.")
-        return super().buy(quantity)
 
     def show(self) -> str:
         """ Overrides show method to return a string that represents the product. """
-        return f"{self.name}, Price: ${self.price}, Limited to 1 per order! "
+        if self.promotion:
+            promo = self.promotion.name
+        else:
+            promo = None
 
+        return f"{self.name}, Price: ${self.price}, Limited to 1 per order!, Promotion: {promo}"
 
+    def buy(self, quantity) -> float:
+        """ Overrides buy method to enforce limit of a product when purchased. """
+        if quantity <= 0:
+            raise ValueError("Quantity must be positive.")
+        if quantity > self.maximum:
+            raise ValueError(f"It is only possible to purchase up to {self.maximum} units in one order.")
 
+        return super().buy(quantity)
 

@@ -38,9 +38,6 @@ class Store:
         for product, quantity in shopping_list:
             if quantity < 0:
                 raise ValueError("Quantity can not be negative.")
-            if quantity > product.get_quantity():
-                raise ValueError("Requested quantity is not available.")
             total_price += product.buy(quantity)
         return total_price
-
 

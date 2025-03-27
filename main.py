@@ -41,8 +41,18 @@ def making_order():
             print("Error adding product!\n")
         else:
             selected_product = best_buy.get_all_products()[select - 1]
-            if quantity > selected_product.get_quantity():
-                print("Error while making order! Quantity larger than what exists\n")
+
+            if isinstance(selected_product, products.LimitedProduct):
+                if quantity > selected_product.maximum:
+                    print(f"Error while making order! Only {selected_product.maximum} is allowed from this product!\n")
+                else:
+                    shopping_cart.append((selected_product, quantity))
+                    print("Product added to list!\n")
+            elif isinstance(selected_product, products.NonStockedProduct):
+                shopping_cart.append((selected_product, quantity))
+                print("Product added to list!\n")
+            elif quantity > selected_product.get_quantity():
+                print("Error while making order! Quantity larger than what exists.\n")
             else:
                 shopping_cart.append((selected_product, quantity))
                 print("Product added to list!\n")

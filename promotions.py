@@ -48,5 +48,7 @@ class SecondOneFree(Promotion):
 class ThirdOneFree(Promotion):
     """ Gives one item for free, when three were bought. """
     def apply_promotion(self, price, quantity) -> float:
-        quantity_to_pay = (quantity + 2) // 3
+        free_items = quantity // 3
+        quantity_to_pay = quantity - free_items
         return price * quantity_to_pay
+

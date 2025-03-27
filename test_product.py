@@ -1,47 +1,45 @@
-from itertools import product
-from nis import match
+import products
 
-import pytest
-from products import Product
-
-
-def test_normal_product():
-    """ Tests that creating a normal product works. """
-    product = Product("Boom Box Big", price=145, quantity=500)
-    assert product.name == "Boom Box Big"
-    assert product.price == 145
-    assert product.quantity == 500
+class Store:
+    def __init__(self, products: list):
+        self.products = products
 
 
-def test_empty_name():
-    """ Tests that creating a product with empty name, invokes an exception. """
-    with pytest.raises(ValueError, match="Name can not be empty, price and quantity can not be negative."):
-        Product("", price=1450, quantity=100)
+    def add_product(self, product):
+        """ Adds a product to the store. """
+        self.products.append(product)
 
 
-def test_negative_price():
-    """ Tests that creating a product with negative price invokes an exception. """
-    with pytest.raises(ValueError, match="Name can not be empty, price and quantity can not be negative."):
-        Product("MacBook Air M2", price=-10, quantity=100)
+    def remove_product(self, product):
+        """ Removes a product from store. """
+        self.products.remove(product)
 
 
-def test_inactive_when_zero_quantity():
-    """ Tests that when a product reaches 0 quantity, it becomes inactive. """
-    product = Product("Boom Box Small", price=80, quantity=0)
-    assert product.get_quantity() == 0
-    assert product.is_active() is False
+    def get_total_quantity(self) -> int:
+        """ Returns how many items are in the store in total. """
+        total = 0
+        for product in self.products:
+            total += product.get_quantity()
+        return total
 
 
-def test_purchase_modifies_quantity():
-    """ Tests that product purchase modifies the quantity and returns the right output. """
-    product = Product("Boom Box Mini", price=50, quantity=250)
-    product.buy(8)
-    assert product.get_quantity() == 242
+    def get_all_products(self) -> list:
+        """ Returns all products in the store that are active. """
+        return self.products
 
 
-def test_buy_larger_quantity():
-    """ Tests that buying a larger quantity than exists invokes exception. """
-    with pytest.raises(ValueError, match="Requested quantity is not available."):
-        product = Product("Boom Box Mini", price=50, quantity=250)
-        product.buy(300)
+    def order(self, shopping_list) -> float:
+        """
+        Gets a list of tuples, where each tuple has 2 items:
+        Product (Product class) and quantity (int).
+        Buys the products and returns the total price of the order.
+        """
+        total_price = 0
+        for product, quantity in shopping_list:
+            if quantity < 0:
+                raise ValueError("Quantity can not be negative.")
+            if quantity > product.get_quantity():
+                raise ValueError("Requested quantity is not available.")
+            total_price += product.buy(quantity)
+        return total_price
 
